@@ -15,6 +15,7 @@ class SubscribeController extends Controller
     public function index()
     {
         //
+        return Subscribe::paginate(10);
     }
 
     /**
@@ -36,6 +37,9 @@ class SubscribeController extends Controller
     public function store(Request $request)
     {
         //
+        Subscribe::create($request->all());
+
+        return response()->json(["message"=>"Subscribe Created", "status"=>200]);
     }
 
     /**
@@ -44,9 +48,15 @@ class SubscribeController extends Controller
      * @param  \App\Models\Subscribe  $subscribe
      * @return \Illuminate\Http\Response
      */
-    public function show(Subscribe $subscribe)
+    public function show( $subscribe)
     {
         //
+        $result= Subscribe::find($subscribe);
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Subscribe not found", "status"=>400]);
+        }
     }
 
     /**
@@ -67,9 +77,12 @@ class SubscribeController extends Controller
      * @param  \App\Models\Subscribe  $subscribe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscribe $subscribe)
+    public function update(Request $request,  $subscribe)
     {
         //
+        Subscribe::find($subscribe)->update($request->all());
+
+        return response()->json(["message"=>"Subscribe Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +91,11 @@ class SubscribeController extends Controller
      * @param  \App\Models\Subscribe  $subscribe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscribe $subscribe)
+    public function destroy( $subscribe)
     {
         //
+        Subscribe::find($subscribe)->delete();
+
+        return response()->json(["message"=>"Subscribe Deleted", "status"=>200]);
     }
 }

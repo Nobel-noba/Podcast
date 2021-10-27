@@ -15,6 +15,7 @@ class FeedbackController extends Controller
     public function index()
     {
         //
+        return Feedback::paginate(10);
     }
 
     /**
@@ -36,6 +37,11 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         //
+        Feedback::create($request->all());
+
+        return response()->json(["message"=>"Feedback Created", "status"=>200]);
+
+
     }
 
     /**
@@ -44,9 +50,15 @@ class FeedbackController extends Controller
      * @param  \App\Models\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function show(Feedback $feedback)
+    public function show( $feedback)
     {
         //
+        $result= Feedback::find($feedback);
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Feedback not found", "status"=>400]);
+        }
     }
 
     /**
@@ -67,9 +79,11 @@ class FeedbackController extends Controller
      * @param  \App\Models\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Feedback $feedback)
+    public function update(Request $request, $feedback)
     {
         //
+        Feedback::find($feedback)->update($request->all());
+        return response()->json(["message"=>"Feedback Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +92,11 @@ class FeedbackController extends Controller
      * @param  \App\Models\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Feedback $feedback)
+    public function destroy( $feedback)
     {
         //
+        Feedback::find($feedback)->delete();
+        return response()->json(["message"=>"Feedback Deleted", "status"=>200]);
+
     }
 }
