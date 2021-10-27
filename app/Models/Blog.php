@@ -25,6 +25,6 @@ class Blog extends Model
     }
 
     public function userBlog(){
-        return $this->belongsToMany(Saved::class, 'saveds', 'blog_id', 'user_id');
+        return $this->belongsToMany(User::class, 'saveds', 'blog_id', 'user_id');
     }
 }

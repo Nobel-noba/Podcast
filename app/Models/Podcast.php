@@ -22,6 +22,10 @@ class Podcast extends Model
     }
 
     public function userPodcast(){
-        return $this->belongsToMany(Saved::class, 'saveds', 'podcast_id', 'user_id');
+        return $this->belongsToMany(User::class, 'saveds', 'podcast_id', 'user_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

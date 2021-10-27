@@ -15,6 +15,9 @@ class SavedFactory extends Factory
     {
         return [
             //
+            'user_id'=>rand(1,10),
+            'blog_id'=>rand (1,100),
+            'podcast_id'=> rand(1,100)
         ];
     }
 }

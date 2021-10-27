@@ -15,6 +15,10 @@ class BlogFactory extends Factory
     {
         return [
             //
+            'title'=>$this->faker->name(),
+            'body'=>$this->faker->paragraph(),
+            'user_id'=>rand(1,10),
+            'cover_picture'=> $this->faker->sentence()
         ];
     }
 }

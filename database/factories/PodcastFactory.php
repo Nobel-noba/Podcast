@@ -15,6 +15,11 @@ class PodcastFactory extends Factory
     {
         return [
             //
+            'channel_id'=>rand(1,10),
+            'picture_path'=>$this->faker->sentence(),
+            'title'=> $this->faker->word(),
+            'description'=>$this->faker->paragraph(),
+            'podcast_path'=>$this->faker->sentence()
         ];
     }
 }

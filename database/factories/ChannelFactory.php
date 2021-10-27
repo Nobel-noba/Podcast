@@ -15,6 +15,10 @@ class ChannelFactory extends Factory
     {
         return [
             //
+            'user_id'=>rand(1,10),
+            'channel_name'=>$this->faker->name(),
+            'cover_photo'=>$this->faker->sentence(),
+            'bio'=>$this->faker->paragraph()
         ];
     }
 }

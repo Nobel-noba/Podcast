@@ -14,7 +14,10 @@ class AboutFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'phone_number'=>$this->faker->phoneNumber(),
+            'email'=>$this->faker->email(),
+            'location'=>$this->faker->sentence(),
+            'detail'=>$this->faker->paragraph()
         ];
     }
 }

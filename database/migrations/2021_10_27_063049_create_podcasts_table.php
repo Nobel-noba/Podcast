@@ -18,7 +18,7 @@ class CreatePodcastsTable extends Migration
             $table->unsignedBigInteger("channel_id");
             $table->string("picture_path");
             $table->string("title");
-            $table->string("description");
+            $table->text("description");
             $table->string("podcast_path");
             $table->timestamps();
         });

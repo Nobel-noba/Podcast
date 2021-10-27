@@ -15,6 +15,9 @@ class ReplyFactory extends Factory
     {
         return [
             //
+            'user_id'=>rand(1,10),
+            'comment_id'=> rand(1,300),
+            'message'=> $this->faker->paragraph()
         ];
     }
 }
