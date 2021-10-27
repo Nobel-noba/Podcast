@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        return Blog::all();
     }
 
     /**
@@ -35,7 +35,15 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Blog::create([
+            "title"=>$request->title,
+            "body"=>$request->body,
+            "user_id"=>$request->user_id,
+            "cover_picture"=>$request->cover_picture
+        ]);
+
+        return response()->json(["message"=>"Blog Created", "status"=>200]);
+
     }
 
     /**
@@ -44,9 +52,15 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($blog)
     {
-        //
+        $result= Blog::find($blog);
+
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Blog not found", "status"=>404]);
+        }
     }
 
     /**
@@ -67,9 +81,11 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $blog)
     {
-        //
+        Blog::find($blog)->update($request->all());
+
+        return response()->json(["message"=>"Blog Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +94,10 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy($blog)
     {
-        //
+        Blog::find($blog)->delete();
+        return response()->json(["message"=>"Blog Deleted", "status"=>200]);
+
     }
 }

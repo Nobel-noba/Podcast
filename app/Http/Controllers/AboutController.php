@@ -14,7 +14,7 @@ class AboutController extends Controller
      */
     public function index()
     {
-        //
+        return About::first();
     }
 
     /**
@@ -35,7 +35,14 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        About::create([
+            "phone_number"=>$request->phone,
+            "email"=>$request->email,
+            "location"=>$request->location,
+            "detail"=>$request->detail
+        ]);
+        return response()->json(["message"=>"About Created", "status"=>200]);
+
     }
 
     /**
@@ -46,7 +53,13 @@ class AboutController extends Controller
      */
     public function show(About $about)
     {
-        //
+        $result=About::first();
+
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"About not found", "status"=>404]);
+        }
     }
 
     /**
@@ -67,9 +80,10 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $about)
+    public function update(Request $request,$about)
     {
-        //
+        About::find($about)->update($request->all());
+        return response()->json(["message"=>"About Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +92,9 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function destroy(About $about)
+    public function destroy($about)
     {
-        //
+        About::find($about)->delete();
+        return response()->json(["message"=>"About deleted", "status"=>200]);
     }
 }
