@@ -15,7 +15,7 @@ class CreateSubscribesTable extends Migration
     {
         Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("phone_number");
+            $table->unsignedBigInteger("channel_id");
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });

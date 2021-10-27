@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Podcast extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'channel_id',
+        'picture_path',
+        'title',
+        'description',
+        'podcast_path'
+    ];
+
+    public function channel(){
+        return $this->belongsTo(Channel::class);
+    }
+
+    public function userPodcast(){
+        return $this->belongsToMany(Saved::class, 'saveds', 'podcast_id', 'user_id');
+    }
 }

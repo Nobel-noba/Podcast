@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -41,4 +42,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function blogs(){
+        return $this->hasMany(Blog::class);
+    }
+
+    public function channels(){
+        return $this->belongsToMany(Channel::class, 'subscribes', 'user_id', 'channel_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function replies(){
+        return $this->hasMany(Reply::class);
+    }
+
+    public function savedBlog(){
+        return $this->belongsToMany(Saved::class, 'saveds', 'user_id', 'blog_id');
+    }
+
+    public function savedPodcast(){
+        return $this->belongsToMany(Saved::class, 'saveds', 'user_id', 'podcast_id');
+    }
 }
