@@ -15,6 +15,7 @@ class SavedController extends Controller
     public function index()
     {
         //
+        return Saved::paginate(10);
     }
 
     /**
@@ -36,6 +37,9 @@ class SavedController extends Controller
     public function store(Request $request)
     {
         //
+        Saved::create($request->all());
+
+        return response()->json(["message"=>"Saved Created", "status"=>200]);
     }
 
     /**
@@ -44,9 +48,15 @@ class SavedController extends Controller
      * @param  \App\Models\Saved  $saved
      * @return \Illuminate\Http\Response
      */
-    public function show(Saved $saved)
+    public function show( $saved)
     {
         //
+        $result= Saved::find($saved);
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Saved not found", "status"=>400]);
+        }
     }
 
     /**
@@ -67,9 +77,12 @@ class SavedController extends Controller
      * @param  \App\Models\Saved  $saved
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Saved $saved)
+    public function update(Request $request,  $saved)
     {
         //
+        Saved::find($saved)->update($request->all());
+
+        return response()->json(["message"=>"Saved Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +91,11 @@ class SavedController extends Controller
      * @param  \App\Models\Saved  $saved
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Saved $saved)
+    public function destroy( $saved)
     {
         //
+        Saved::find($saved)->delete();
+
+        return response()->json(["message"=>"Saved Deleted", "status"=>200]);
     }
 }

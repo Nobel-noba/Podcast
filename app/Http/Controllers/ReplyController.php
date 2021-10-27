@@ -14,6 +14,7 @@ class ReplyController extends Controller
      */
     public function index()
     {
+        return Reply::all();
         //
     }
 
@@ -36,6 +37,9 @@ class ReplyController extends Controller
     public function store(Request $request)
     {
         //
+        Reply::create($request->all());
+
+        return response()->json(["message"=>"Reply Created", "status"=>200]);
     }
 
     /**
@@ -44,9 +48,15 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function show(Reply $reply)
+    public function show( $reply)
     {
         //
+        $result= Reply::find($reply);
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Reply not found", "status"=>400]);
+        }
     }
 
     /**
@@ -67,9 +77,13 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Request $request,  $reply)
     {
         //
+        
+        Reply::find($reply)->update($request->all());
+
+        return response()->json(["message"=>"Reply Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +92,11 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy( $reply)
     {
         //
+        Reply::find($reply)->delete();
+
+        return response()->json(["message"=>"Reply Deleted", "status"=>200]);
     }
 }
