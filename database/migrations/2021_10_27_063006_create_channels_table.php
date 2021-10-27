@@ -15,6 +15,10 @@ class CreateChannelsTable extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id"); 
+            $table->string("channel_name");
+            $table->string("cover_photo");
+            $table->text("bio");
             $table->timestamps();
         });
     }
