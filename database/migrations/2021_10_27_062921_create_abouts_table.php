@@ -18,7 +18,7 @@ class CreateAboutsTable extends Migration
             $table->string("phone_number");
             $table->string("email");
             $table->string("location");
-            $table->string("detail");
+            $table->text("detail");
             $table->timestamps();
         });
     }

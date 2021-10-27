@@ -15,6 +15,7 @@ class PodcastController extends Controller
     public function index()
     {
         //
+        return Podcast::paginate(10);
     }
 
     /**
@@ -36,6 +37,8 @@ class PodcastController extends Controller
     public function store(Request $request)
     {
         //
+        Podcast::create($request->all());
+        return response()->json(["message"=>"Podcast Created", "status"=>200]);
     }
 
     /**
@@ -44,9 +47,15 @@ class PodcastController extends Controller
      * @param  \App\Models\Podcast  $podcast
      * @return \Illuminate\Http\Response
      */
-    public function show(Podcast $podcast)
+    public function show( $podcast)
     {
         //
+        $result= Podcast::find($podcast);
+        if($result){
+            return $result;
+        }else{
+            return response()->json(["message"=>"Podcast not found", "status"=>400]);
+        }
     }
 
     /**
@@ -67,9 +76,11 @@ class PodcastController extends Controller
      * @param  \App\Models\Podcast  $podcast
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Podcast $podcast)
+    public function update(Request $request,  $podcast)
     {
         //
+        Podcast::find($podcast)->update($request->all());
+        return response()->json(["message"=>"Podcast Updated", "status"=>200]);
     }
 
     /**
@@ -78,8 +89,9 @@ class PodcastController extends Controller
      * @param  \App\Models\Podcast  $podcast
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Podcast $podcast)
+    public function destroy( $podcast)
     {
-        //
+        Podcast::find($podcast)->delete();
+        return response()->json(["message"=>"Podcast Deleted", "status"=>200]);
     }
 }

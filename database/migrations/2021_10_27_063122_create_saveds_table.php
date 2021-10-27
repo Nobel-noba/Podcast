@@ -16,8 +16,8 @@ class CreateSavedsTable extends Migration
         Schema::create('saveds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('blog_id')->nullable; 
-            $table->unsignedBigInteger('podcast_id')->nullable;
+            $table->unsignedBigInteger('blog_id')->nullable(); 
+            $table->unsignedBigInteger('podcast_id')->nullable();
             $table->timestamps();
         });
     }
